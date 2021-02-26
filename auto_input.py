@@ -88,9 +88,8 @@ for i, row in df.iterrows():
                 jobcan_cli.input_data(index - 1, project, task, hour)
 
     if not testmode:
-        import pdb; pdb.set_trace()
         jobcan_cli.save_data()
         jobcan_cli.wait_save_completed()
 
-# if not testmode:
-#     jobcan_cli.quit()
+if not testmode:
+    jobcan_cli.quit()
