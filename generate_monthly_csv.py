@@ -26,7 +26,7 @@ def main():
         csv_data[col] = []
 
     _, last_day = monthrange(year, month)
-    for day in range(0, last_day + 1):
+    for day in range(1, last_day + 1):
         csv_data['date'].append("{:04d}/{:02d}/{:02d}".format(year, month, day))
         for col in columns:
             if col == "date":
