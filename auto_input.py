@@ -59,6 +59,9 @@ for i, row in df.iterrows():
         if total_work_time == total_man_hour:
             print(f"{date}: done")
             continue
+        if total_work_time == "00:00":
+            print(f"{date}: zero time")
+            continue
 
     task_hours = []
     for col in data_cols:
