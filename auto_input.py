@@ -91,6 +91,9 @@ for i, row in df.iterrows():
                 jobcan_cli.input_data(index - 1, project, task, hour)
 
     if not testmode:
+        # Trick. Without this code, last input will be saved as 00:00
+        jobcan_cli.add_blank_record()
+
         jobcan_cli.save_data()
         jobcan_cli.wait_save_completed()
 
