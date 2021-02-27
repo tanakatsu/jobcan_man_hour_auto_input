@@ -120,6 +120,10 @@ class JobcanInput():
 
         target_elm.find_element_by_css_selector("td > input.form-control.jbc-form-control.form-control-sm.man-hour-input").send_keys(hour.zfill(5))
 
+    def remove_record(self, index):
+        target_elm = self._select_record(index)
+        target_elm.find_element_by_css_selector('td > span[onclick*="removeRecord"]').click()
+
     def save_data(self):
         self.driver.find_element_by_id("save").submit()
 
