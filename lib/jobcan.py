@@ -26,7 +26,7 @@ class JobcanInput():
         else:
             self.password = os.environ['JOBCAN_PASSWORD']
         self.JOBCAN_URL = 'https://ssl.jobcan.jp/employee'
-        self.WAIT = 10  # sec
+        self.WAIT = 30  # sec
 
     def login(self):
         self.driver.get(self.JOBCAN_URL)
