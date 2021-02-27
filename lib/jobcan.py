@@ -91,7 +91,7 @@ class JobcanInput():
         # print(projects_and_tasks)
         return projects_and_tasks
 
-    def input_data(self, index, project, task, hour, save=False):
+    def input_data(self, index, project, task, hour):
         target_elm = self._select_record(index)
         select = Select(target_elm.find_element_by_css_selector("td > select"))
         select.select_by_visible_text(project)
@@ -100,8 +100,6 @@ class JobcanInput():
         select.select_by_visible_text(task)
 
         target_elm.find_element_by_css_selector("td > input.form-control.jbc-form-control.form-control-sm.man-hour-input").send_keys(hour)
-        if save:
-            self.save_data()
 
     def save_data(self):
         self.driver.find_element_by_id("save").submit()
