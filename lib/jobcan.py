@@ -76,6 +76,25 @@ class JobcanInput():
         # print(un_match_time)
         return un_match_time
 
+    def get_current_year_and_month(self):
+        WebDriverWait(self.driver, self.WAIT).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "#search-term")))
+        year_select_elm = self.driver.find_element_by_css_selector('#search-term > form > div > div > select[name="year"] > option[selected="1"]')
+        year = int(year_select_elm.text)
+        month_select_elm = self.driver.find_element_by_css_selector('#search-term > form > div > div > select[name="month"] > option[selected="1"]')
+        month = int(month_select_elm.text)
+        return year, month
+
+    def set_current_year_and_month(self, year, month):
+        WebDriverWait(self.driver, self.WAIT).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "#search-term")))
+        year_select_elm = self.driver.find_element_by_css_selector('#search-term > form > div > div > select[name="year"]')
+        select = Select(year_select_elm)
+        select.select_by_visible_text(str(year))
+        month_select_elm = self.driver.find_element_by_css_selector('#search-term > form > div > div > select[name="month"]')
+        select = Select(month_select_elm)
+        select.select_by_visible_text(str(month).zfill(2))
+
     def get_projects_and_tasks(self):
         projects_and_tasks = OrderedDict()
         elms = self.driver.find_elements_by_css_selector("#edit-menu-contents > table > tbody > tr.daily[data-index='1'] > td > select[name='projects[]'] > option")
