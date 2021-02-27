@@ -23,7 +23,7 @@ Save time and work more :-)
 1. Set crendential information
     ```
     export JOBCAN_CHROMEDRIVER_PATH=PATH_TO_YOUR_DRIVER_PATH
-    export JOBCAN_CLIENT_ID=YOUR_COMAPNY_CLIENT_ID
+    export JOBCAN_CLIENT_ID=YOUR_COMPANY_CLIENT_ID
     export JOBCAN_EMAIL=YOUR_EMAIL
     export JOBCAN_PASSWORD=YOUR_PASSWORD
     ```
