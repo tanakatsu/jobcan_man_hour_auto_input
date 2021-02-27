@@ -118,7 +118,7 @@ class JobcanInput():
         select = Select(target_elm.find_elements_by_css_selector("td > select")[1])
         select.select_by_visible_text(task)
 
-        target_elm.find_element_by_css_selector("td > input.form-control.jbc-form-control.form-control-sm.man-hour-input").send_keys(hour)
+        target_elm.find_element_by_css_selector("td > input.form-control.jbc-form-control.form-control-sm.man-hour-input").send_keys(hour.zfill(5))
 
     def save_data(self):
         self.driver.find_element_by_id("save").submit()
