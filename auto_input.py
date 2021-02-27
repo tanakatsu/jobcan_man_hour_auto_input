@@ -26,6 +26,7 @@ def calc_rest_of_hour(total_hour, task_hours, row, cols):
 parser = ArgumentParser()
 parser.add_argument('csvfile', help='input csvfile')
 parser.add_argument('-t', '--test', action='store_true', help='test mode')
+parser.add_argument('--close_on_end', action='store_true', help='close browser on end')
 parser.add_argument('--chrome_driver_path', help='chrome driver path')
 parser.add_argument('--client_id', help='client_id')
 parser.add_argument('--email', help='email')
@@ -42,6 +43,8 @@ df = pd.read_csv(args.csvfile, dtype=str)
 data_cols = [col for col in df.columns if col not in RESERVED_COLS]
 
 testmode = args.test
+close_on_end = args.close_on_end
+
 if not testmode:
     jobcan_cli = JobcanInput(CHROMEDRIVER_PATH, client_id=CLIENT_ID, email=EMAIL, password=PASSWORD)
     jobcan_cli.login()
@@ -97,5 +100,5 @@ for i, row in df.iterrows():
         jobcan_cli.save_data()
         jobcan_cli.wait_save_completed()
 
-if not testmode:
+if not testmode and close_on_end:
     jobcan_cli.quit()
