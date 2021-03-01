@@ -19,6 +19,9 @@ def calc_rest_of_hour(total_hour, task_hours, row, cols):
             if re.match("\d\d:\d\d", val) or re.match("\d:\d\d", val):
                 h, m = [int(t) for t in val.split(":")]
                 rest = rest - timedelta(hours=h, minutes=m)
+    if rest.total_seconds() < 0:
+        # sum of task hours is greater than total hour
+        return None
     rest = str(rest)[:-3]
     return rest
 
