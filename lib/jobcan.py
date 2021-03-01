@@ -12,6 +12,8 @@ from collections import OrderedDict
 
 class JobcanInput():
     def __init__(self, chromedriver_path, **kwargs):
+        assert chromedriver_path is not None
+
         self.driver = webdriver.Chrome(chromedriver_path)
         if 'client_id' in kwargs:
             self.client_id = kwargs['client_id']
@@ -27,6 +29,9 @@ class JobcanInput():
             self.password = os.environ['JOBCAN_PASSWORD']
         self.JOBCAN_URL = 'https://ssl.jobcan.jp/employee'
         self.WAIT = 30  # sec
+        assert self.client_id is not None
+        assert self.email is not None
+        assert self.password is not None
 
     def login(self):
         self.driver.get(self.JOBCAN_URL)
