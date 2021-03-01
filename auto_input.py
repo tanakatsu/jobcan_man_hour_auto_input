@@ -82,6 +82,10 @@ for i, row in df.iterrows():
             task_hours.append(hour)
 
     if not testmode:
+        rest_hour = calc_rest_of_hour(total_work_time, task_hours, row, data_cols)
+        if rest_hour is None:
+            print(f"{date}: [Error] total hour is greater than total work time")
+            continue
         jobcan_cli.select_date(date, open=True)
 
     for col in data_cols:
