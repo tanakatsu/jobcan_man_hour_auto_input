@@ -66,6 +66,11 @@ for i, row in df.iterrows():
             print(f"{date}: zero time")
             continue
 
+        target_year, target_month = [int(t) for t in date.split("/")[:2]]
+        current_year, current_month = jobcan_cli.get_current_year_and_month()
+        if (not target_year == current_year) or (not target_month == current_month):
+            jobcan_cli.set_current_year_and_month(target_year, target_month)
+
     task_hours = []
     for col in data_cols:
         project, task = col.split("_")
