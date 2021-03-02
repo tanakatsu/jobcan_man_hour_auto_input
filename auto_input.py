@@ -60,6 +60,11 @@ for i, row in df.iterrows():
         continue
 
     if not testmode:
+        target_year, target_month = [int(t) for t in date.split("/")[:2]]
+        current_year, current_month = jobcan_cli.get_current_year_and_month()
+        if (not target_year == current_year) or (not target_month == current_month):
+            jobcan_cli.set_current_year_and_month(target_year, target_month)
+
         total_work_time, total_man_hour = jobcan_cli.select_date(date, open=False)
         print(date, total_work_time, total_man_hour)
         if total_work_time == total_man_hour:
@@ -68,11 +73,6 @@ for i, row in df.iterrows():
         if total_work_time == "00:00":
             print(f"{date}: zero time")
             continue
-
-        target_year, target_month = [int(t) for t in date.split("/")[:2]]
-        current_year, current_month = jobcan_cli.get_current_year_and_month()
-        if (not target_year == current_year) or (not target_month == current_month):
-            jobcan_cli.set_current_year_and_month(target_year, target_month)
 
     task_hours = []
     for col in data_cols:
