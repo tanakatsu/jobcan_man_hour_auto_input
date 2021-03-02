@@ -112,5 +112,23 @@ for i, row in df.iterrows():
         jobcan_cli.save_data()
         jobcan_cli.wait_save_completed()
 
-if not testmode and close_on_end:
-    jobcan_cli.quit()
+if not testmode:
+    # after check
+    unprocessed = 0
+    for i, row in df.iterrows():
+        date = row['date']
+        target_year, target_month = [int(t) for t in date.split("/")[:2]]
+        current_year, current_month = jobcan_cli.get_current_year_and_month()
+        if (not target_year == current_year) or (not target_month == current_month):
+            jobcan_cli.set_current_year_and_month(target_year, target_month)
+
+        total_work_time, total_man_hour = jobcan_cli.select_date(date, open=False)
+        if not total_work_time == "00:00":  # working day
+            if not total_work_time == total_man_hour:  # not processed day
+                print(f"{date}: [Warning] Unprocessed. Check again")
+                unprocessed += 1
+                continue
+    if unprocessed == 0:
+        print("All dates are processed")
+    if close_on_end:
+        jobcan_cli.quit()
