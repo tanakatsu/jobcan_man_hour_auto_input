@@ -9,4 +9,4 @@ status=$?
 if [ $status -eq 1 ]; then
   exit 1
 fi
-python auto_input.py $csvfile
+python auto_input.py --close_on_success $csvfile

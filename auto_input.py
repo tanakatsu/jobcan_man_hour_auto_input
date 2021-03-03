@@ -29,7 +29,7 @@ def calc_rest_of_hour(total_hour, task_hours, row, cols):
 parser = ArgumentParser()
 parser.add_argument('csvfile', help='input csvfile')
 parser.add_argument('-t', '--test', action='store_true', help='test mode')
-parser.add_argument('--close_on_end', action='store_true', help='close browser on end')
+parser.add_argument('--close_on_success', action='store_true', help='close browser on success')
 parser.add_argument('--chrome_driver_path', help='chrome driver path')
 parser.add_argument('--client_id', help='client_id')
 parser.add_argument('--email', help='email')
@@ -46,7 +46,7 @@ df = pd.read_csv(args.csvfile, dtype=str)
 data_cols = [col for col in df.columns if col not in RESERVED_COLS]
 
 testmode = args.test
-close_on_end = args.close_on_end
+close_on_success = args.close_on_success
 
 if not testmode:
     jobcan_cli = JobcanInput(CHROMEDRIVER_PATH, client_id=CLIENT_ID, email=EMAIL, password=PASSWORD)
@@ -130,5 +130,5 @@ if not testmode:
                 continue
     if unprocessed == 0:
         print("All dates are processed")
-    if close_on_end:
-        jobcan_cli.quit()
+        if close_on_success:
+            jobcan_cli.quit()
