@@ -94,7 +94,7 @@ for i, row in df.iterrows():
         if type(hour) is str:
             if not testmode:
                 if hour == '-1':
-                    hour = calc_rest_of_hour(total_work_time, task_hours, row, data_cols)
+                    hour = rest_hour
                     print(date, project, task, -1, hour)
                 else:
                     print(date, project, task, hour)
