@@ -130,6 +130,8 @@ class JobcanInput():
         target_elm.find_element_by_css_selector('td > span[onclick*="removeRecord"]').click()
 
     def save_data(self):
+        WebDriverWait(self.driver, self.WAIT).until(
+            EC.presence_of_element_located((By.CSS_SELECTOR, "#save")))
         self.driver.find_element_by_id("save").submit()
 
     def wait_save_completed(self):
