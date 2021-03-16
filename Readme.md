@@ -20,7 +20,7 @@ Save time and work more :-)
     - Check your chrome browser's version
     - Download appropriate ChromeDriver from [here](https://chromedriver.chromium.org/downloads)
     - Unzip and put `chromedriver` into suitable location
-1. Set crendential information
+1. Set crendential information and chrome driver's path
     ```
     export JOBCAN_CHROMEDRIVER_PATH=PATH_TO_YOUR_DRIVER_PATH
     export JOBCAN_CLIENT_ID=YOUR_COMPANY_CLIENT_ID
