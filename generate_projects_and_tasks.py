@@ -5,6 +5,7 @@ import os
 
 parser = ArgumentParser()
 parser.add_argument('--chrome_driver_path', help='chrome driver path')
+parser.add_argument('-o', '--output', type=str, default="project_task.csv", help='output filename')
 parser.add_argument('--client_id', help='client_id')
 parser.add_argument('--email', help='email')
 parser.add_argument('--password', help='password')
@@ -31,4 +32,4 @@ df = pd.DataFrame(columns=["project", "task"])
 for project, tasks in projects_and_tasks.items():
     for task in tasks:
         df = df.append(pd.Series([project, task], index=df.columns), ignore_index=True)
-df.to_csv("project_task.csv", index=False)
+df.to_csv(args.output, index=False)
