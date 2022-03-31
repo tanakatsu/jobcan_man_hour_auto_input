@@ -76,7 +76,12 @@ for i, row in df.iterrows():
 
     task_hours = []
     for col in data_cols:
-        project, task = col.split("_")
+        project_task = col.split("_")
+        if len(project_task) == 2:
+            project, task = project_task
+        else:
+            project = project_task[0]
+            task = '_'.join(project_task[1:])
         hour = row[col]
         if type(hour) is str:
             task_hours.append(hour)
@@ -89,7 +94,12 @@ for i, row in df.iterrows():
         jobcan_cli.select_date(date, open=True)
 
     for col in data_cols:
-        project, task = col.split("_")
+        project_task = col.split("_")
+        if len(project_task) == 2:
+            project, task = project_task
+        else:
+            project = project_task[0]
+            task = '_'.join(project_task[1:])
         hour = row[col]
         if type(hour) is str:
             if not testmode:
