@@ -6,20 +6,14 @@ This is a tool that helps inputting man-hour records repeatedly.
 Save time and work more :-)
 
 ### System requirements
-- Python
-- Chrome browser
+- Docker
 
 ### Get started
 
-1. Install required python packages
+1. Build docker image
     ```
-    $ pip install pandas
-    $ pip install selenium
+    ./build.sh
     ```
-1. Download ChromeDriver
-    - Check your chrome browser's version
-    - Download appropriate ChromeDriver from [here](https://chromedriver.chromium.org/downloads)
-    - Unzip and put `chromedriver` into suitable location
 1. Set crendential information and chrome driver's path
     ```
     export JOBCAN_CHROMEDRIVER_PATH=PATH_TO_YOUR_DRIVER_PATH
@@ -29,12 +23,16 @@ Save time and work more :-)
     ```
 1. Generate project and task csv
     ```
-    $ python generate_projects_and_tasks.py
+    $ ./run_generate_projects_and_tasks.py
+    ```
+1. Copy project\_task.all.csv and edit project\_task.csv to drop irrelevant tasks to you
+    ```
+    $ cp project_task.all.csv project_task.csv
     ```
 1. Generate monthly csv
     ```
     # Example
-    $ python generate_monthly_csv.py 2021 3
+    $ ./run_generate_monthly_csv.sh 2021 3
     ```
 1. Edit monthly csv
     ```
@@ -48,7 +46,7 @@ Save time and work more :-)
     - In above example, -1 would be 6:00 when total work hours is 8:00
 1. Run auto input tool
     ```
-    ./jobcan_auto_input.sh 2021_03.csv
+    ./run_auto_input.sh 2021_03.csv
     ```
 
 ### License
