@@ -30,6 +30,7 @@ parser = ArgumentParser()
 parser.add_argument('csvfile', help='input csvfile')
 parser.add_argument('-t', '--test', action='store_true', help='test mode')
 parser.add_argument('--close_on_success', action='store_true', help='close browser on success')
+parser.add_argument('--headless', action='store_true', help='headless mode')
 parser.add_argument('--chrome_driver_path', help='chrome driver path')
 parser.add_argument('--client_id', help='client_id')
 parser.add_argument('--email', help='email')
@@ -47,9 +48,10 @@ data_cols = [col for col in df.columns if col not in RESERVED_COLS]
 
 testmode = args.test
 close_on_success = args.close_on_success
+headless = args.headless
 
 if not testmode:
-    jobcan_cli = JobcanInput(CHROMEDRIVER_PATH, client_id=CLIENT_ID, email=EMAIL, password=PASSWORD)
+    jobcan_cli = JobcanInput(CHROMEDRIVER_PATH, client_id=CLIENT_ID, email=EMAIL, password=PASSWORD, headless=headless)
     jobcan_cli.login()
     jobcan_cli.open_man_hour_manage()
 

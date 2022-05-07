@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -e
+
 if [ $# != 1 ]; then
   echo Usage: jobcan_auto_input.sh your_monthly.csv
   exit 1
@@ -9,4 +13,4 @@ status=$?
 if [ $status -eq 1 ]; then
   exit 1
 fi
-python auto_input.py --close_on_success $csvfile
+python auto_input.py --close_on_success --headless $csvfile

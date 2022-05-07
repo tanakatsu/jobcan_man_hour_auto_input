@@ -14,7 +14,16 @@ class JobcanInput():
     def __init__(self, chromedriver_path, **kwargs):
         assert chromedriver_path is not None
 
-        self.driver = webdriver.Chrome(chromedriver_path)
+        if 'headless' in kwargs and kwargs['headless']:
+            options = webdriver.ChromeOptions()
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument("--disable-dev-shm-usage")
+            options.add_argument("--window-size=1200,1000")
+            self.driver = webdriver.Chrome(chromedriver_path, options=options)
+        else:
+            self.driver = webdriver.Chrome(chromedriver_path)
+
         if 'client_id' in kwargs:
             self.client_id = kwargs['client_id']
         else:
@@ -39,10 +48,27 @@ class JobcanInput():
         self.driver.find_element_by_id("email").send_keys(self.email)
         self.driver.find_element_by_id("password").send_keys(self.password)
         self.driver.find_element_by_css_selector("body > div > div > div.login-block > form > div:nth-child(5) > button").click()
+        print("Logged in")
+
+    def is_sidemenu_open(self):
+        return self.driver.find_element_by_css_selector('#sidemenu').is_displayed()
+
+    def is_sidemenu_closed(self):
+        return self.driver.find_element_by_css_selector('#sidemenu-closed').is_displayed()
+
+    def open_sidemenu(self):
+        self.driver.find_element_by_css_selector('#sidemenu-closed > div > button').click()
+
+    def close_sidemenu(self):
+        self.driver.find_element_by_css_selector('#sidemenu > div > button').click()
+        print("Closed sidemenu")
 
     def open_man_hour_manage(self):
+        if self.is_sidemenu_closed():  # headlessモードのとき
+            self.open_sidemenu()
         self.driver.find_element_by_id("menu_man_hour_manage_img").click()
         self.driver.find_element_by_css_selector("#menu_man_hour_manage > a:nth-child(1)").click()
+        print("Opened man hour manage")
 
     def select_date(self, date=None, open=True):
         if date:
