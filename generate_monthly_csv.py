@@ -7,13 +7,15 @@ PROJECT_TASK_CSVFILE = "project_task.csv"
 
 def main():
     parser = ArgumentParser()
+    parser.add_argument('--project_task_csv', type=str, default=PROJECT_TASK_CSVFILE, help='projects and tasks definition csvfile')
     parser.add_argument('year', type=int, help='year')
     parser.add_argument('month', type=int, help='month')
     args = parser.parse_args()
     year = args.year
     month = args.month
+    project_task_csv = args.project_task_csv
 
-    df_project = pd.read_csv(PROJECT_TASK_CSVFILE)
+    df_project = pd.read_csv(project_task_csv)
     columns = ['date']
     for _, row in df_project.iterrows():
         project = row['project']
