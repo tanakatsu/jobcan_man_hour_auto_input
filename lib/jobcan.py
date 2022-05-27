@@ -58,6 +58,7 @@ class JobcanInput():
 
     def open_sidemenu(self):
         self.driver.find_element_by_css_selector('#sidemenu-closed > div > button').click()
+        print("Opened sidemenu")
 
     def close_sidemenu(self):
         self.driver.find_element_by_css_selector('#sidemenu > div > button').click()
@@ -65,6 +66,7 @@ class JobcanInput():
 
     def open_man_hour_manage(self):
         if self.is_sidemenu_closed():  # headlessモードのとき
+            print("Sidemenu is closed")
             self.open_sidemenu()
         self.driver.find_element_by_id("menu_man_hour_manage_img").click()
         self.driver.find_element_by_css_selector("#menu_man_hour_manage > a:nth-child(1)").click()

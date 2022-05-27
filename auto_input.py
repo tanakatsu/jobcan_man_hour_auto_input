@@ -70,7 +70,7 @@ for i, row in df.iterrows():
         total_work_time, total_man_hour = jobcan_cli.select_date(date, open=False)
         print(date, total_work_time, total_man_hour)
         if total_work_time == total_man_hour:
-            print(f"{date}: done")
+            # print(f"{date}: done")
             continue
         if total_work_time == "00:00":
             print(f"{date}: zero time")
