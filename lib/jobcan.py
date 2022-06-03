@@ -92,7 +92,7 @@ class JobcanInput():
 
     def add_blank_record(self):
         add_btn_elm = WebDriverWait(self.driver, self.WAIT).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'span[onclick*="addRecord"]')))
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'span[onclick*="addRecord"]')))
         add_btn_elm.click()
 
         elms = self.driver.find_elements_by_css_selector("tr.daily")
