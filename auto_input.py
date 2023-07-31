@@ -43,6 +43,16 @@ CLIENT_ID = args.client_id if args.client_id else os.environ.get('JOBCAN_CLIENT_
 EMAIL = args.email if args.email else os.environ.get('JOBCAN_EMAIL')
 PASSWORD = args.password if args.password else os.environ.get('JOBCAN_PASSWORD')
 
+# Check values
+if not CHROMEDRIVER_PATH:
+    raise ValueError("CHROMEDRIVER_PATH is empty")
+if not CLIENT_ID:
+    raise ValueError("CLIENT_ID is empty")
+if not EMAIL:
+    raise ValueError("EMAIL is empty")
+if not PASSWORD:
+    raise ValueError("PASSWORD is empty")
+
 df = pd.read_csv(args.csvfile, dtype=str)
 data_cols = [col for col in df.columns if col not in RESERVED_COLS]
 
