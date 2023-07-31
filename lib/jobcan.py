@@ -175,6 +175,11 @@ class JobcanInput():
     def save_screenshot(self, filename):
         self.driver.save_screenshot(filename)
 
+    def save_html(self, filename):
+        html = self.driver.page_source
+        with open(filename, "w") as f:
+            f.write(html)
+
     def _select_record(self, index=0):
         target_elm = WebDriverWait(self.driver, self.WAIT).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, f'tr.daily[data-index="{index + 1}"]')))
