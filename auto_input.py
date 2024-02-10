@@ -31,10 +31,16 @@ def validate_task_hours(task_hours: list) -> None:
             raise ValueError(f"{task_hour} is invalid")
 
 
+def to_total_minutes(time_in_hour_min: str) -> int:
+    hour, minute = map(int, time_in_hour_min.split(":"))
+    return hour * 60 + minute
+
+
 parser = ArgumentParser()
 parser.add_argument('csvfile', help='input csvfile')
 parser.add_argument('-t', '--test', action='store_true', help='test mode')
 parser.add_argument('--close_on_success', action='store_true', help='close browser on success')
+parser.add_argument('--proceed_when_remaining_exists', action='store_true', help="Don't skip when remaining exists")
 parser.add_argument('--headless', action='store_true', help='headless mode')
 parser.add_argument('--chrome_driver_path', help='chrome driver path')
 parser.add_argument('--client_id', help='client_id')
@@ -63,6 +69,7 @@ data_cols = [col for col in df.columns if col not in RESERVED_COLS]
 
 testmode = args.test
 close_on_success = args.close_on_success
+proceed_when_remaining_exists = args.proceed_when_remaining_exists
 headless = args.headless
 
 if not testmode:
@@ -104,6 +111,13 @@ for i, row in df.iterrows():
             task_hours.append(hour)
 
     validate_task_hours(task_hours)
+
+    if not proceed_when_remaining_exists and '-1' not in task_hours:
+        total_work_time_minutes = to_total_minutes(total_work_time)
+        total_task_hours_minutes = sum([to_total_minutes(task_h) for task_h in task_hours])
+        if not total_work_time_minutes == total_task_hours_minutes:
+            print("Warning: total_work_time doesn't match with sum of task_hours")
+            continue
 
     if not testmode:
         rest_hour = calc_rest_of_hour(total_work_time, task_hours, row, data_cols)

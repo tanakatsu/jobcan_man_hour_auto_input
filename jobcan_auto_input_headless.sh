@@ -14,3 +14,4 @@ if [ $status -eq 1 ]; then
   exit 1
 fi
 python auto_input.py --close_on_success --headless $csvfile
+# python auto_input.py --close_on_success --proceed_when_remaining_exists --headless $csvfile
