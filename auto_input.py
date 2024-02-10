@@ -25,6 +25,7 @@ def calc_rest_of_hour(total_hour, task_hours, row, cols):
     rest = str(rest)[:-3]
     return rest
 
+
 def validate_task_hours(task_hours: list) -> None:
     for task_hour in task_hours:
         if not (task_hour == "-1" or re.match("^\d{1,2}:\d\d$", task_hour)):
