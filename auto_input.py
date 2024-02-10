@@ -25,6 +25,11 @@ def calc_rest_of_hour(total_hour, task_hours, row, cols):
     rest = str(rest)[:-3]
     return rest
 
+def validate_task_hours(task_hours: list) -> None:
+    for task_hour in task_hours:
+        if not (task_hour == "-1" or re.match("^\d{1,2}:\d\d$", task_hour)):
+            raise ValueError(f"{task_hour} is invalid")
+
 
 parser = ArgumentParser()
 parser.add_argument('csvfile', help='input csvfile')
@@ -97,6 +102,8 @@ for i, row in df.iterrows():
         hour = row[col]
         if type(hour) is str:
             task_hours.append(hour)
+
+    validate_task_hours(task_hours)
 
     if not testmode:
         rest_hour = calc_rest_of_hour(total_work_time, task_hours, row, data_cols)
