@@ -1,2 +1,2 @@
-selenium==3.141.0
-pandas
+selenium==4.19.0
+pandas==2.2.1
