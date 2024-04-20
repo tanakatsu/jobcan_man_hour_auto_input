@@ -30,8 +30,10 @@ jobcan_cli.quit()
 print(projects_and_tasks)
 
 # create csv file
-df = pd.DataFrame(columns=["project", "task"])
+data = {"project": [], "task": []}
 for project, tasks in projects_and_tasks.items():
     for task in tasks:
-        df = df.append(pd.Series([project, task], index=df.columns), ignore_index=True)
+        data["project"].append(project)
+        data["task"].append(task)
+df = pd.DataFrame(data)
 df.to_csv(args.output, index=False)
